@@ -5,9 +5,7 @@ def part_one(puzzle_input):
     matches = re.findall(r"(mul\(\d{1,3},\d{1,3}\))", puzzle_input)
     s = 0
     for match in matches:
-        m = match[4:]
-        m = m[:-1]
-        x, y = [int(each) for each in m.split(",")]
+        x, y = [int(each) for each in match[4:-1].split(",")]
         s += x * y
     print(s)
 
@@ -28,9 +26,7 @@ def part_two(puzzle_input):
         if not active:
             continue
 
-        m = match[4:]
-        m = m[:-1]
-        x, y = [int(each) for each in m.split(",")]
+        x, y = [int(each) for each in match[4:-1].split(",")]
         s += x * y
     print(s)
 
