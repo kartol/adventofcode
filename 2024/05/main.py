@@ -1,5 +1,4 @@
-from black.trans import defaultdict
-
+from collections import defaultdict
 
 def parse_input(puzzle_input):
     rules_input, prints_input = puzzle_input.split("\n\n")
