@@ -1,4 +1,3 @@
-import time
 from typing import NamedTuple
 
 import numpy as np
@@ -27,6 +26,7 @@ def render(coords: list[Coords], grid_x, grid_y):
         grid[coord.y % grid_y][coord.x % grid_x] += 1
     return grid
 
+
 def print_grid(grid):
     for line in grid:
         for each in line:
@@ -35,6 +35,7 @@ def print_grid(grid):
             else:
                 print(each, end="")
         print()
+
 
 def parse_input(puzzle_input):
     robots = []
@@ -69,11 +70,13 @@ def part_one(puzzle_input, grid_x, grid_y):
         * np.sum(np_grid[grid_half_y:, grid_half_x + 1 :])
     )
 
+
 def scan_grid(np_grid):
-    mask = np_grid==0
+    mask = np_grid == 0
     cs = np_grid.cumsum(axis=1)
-    out = cs-np.maximum.accumulate(np.where(mask, cs, 0), axis=1)
+    out = cs - np.maximum.accumulate(np.where(mask, cs, 0), axis=1)
     return np.max(out) >= 10
+
 
 def part_two(puzzle_input, grid_x, grid_y):
     robots = parse_input(puzzle_input)
@@ -86,12 +89,12 @@ def part_two(puzzle_input, grid_x, grid_y):
             coords.append(robot.coords + seconds * robot.velocity)
         grid = render(coords, grid_x, grid_y)
         np_grid = np.array(grid)
-        
+
         if scan_grid(np_grid):
             grid_half_x = grid_x // 2
             grid_half_y = grid_y // 2
             print_grid(grid)
-    
+
             print(
                 np.sum(np_grid[:grid_half_y, :grid_half_x])
                 * np.sum(np_grid[:grid_half_y, grid_half_x + 1 :])
@@ -107,5 +110,5 @@ if __name__ == "__main__":
 
     part_one(puzzle.example, 11, 7)
     part_one(puzzle.input, 101, 103)
-    
+
     part_two(puzzle.input, 101, 103)
